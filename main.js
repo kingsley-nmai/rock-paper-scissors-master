@@ -43,6 +43,7 @@ const AllresultsDivs = document.querySelectorAll(".results_result");
 const resultWinner = document.querySelector(".results_winner");
 const resultsText = document.querySelector(".results_text");
 const playAgainBtn = document.querySelector(".play-again");
+const resultScore = document.querySelector(".score_number");
 
 choiceBtns.forEach((btn) => {
   btn.onclick = () => {
@@ -100,12 +101,15 @@ const displayWinner = (results) => {
     if (userWins) {
       resultsText.innerHTML = "you win";
       AllresultsDivs[0].classList.toggle("winner");
+      keepScore(1);
     } else if (aiWins) {
       resultsText.innerHTML = "you lose";
       AllresultsDivs[1].classList.toggle("winner");
+      keepScore(-1);
     } else {
       resultsText.innerHTML = "tie";
     }
+
     resultWinner.classList.toggle("hidden");
     resultsDiv.classList.toggle("show-winner");
   }, 1000);
@@ -125,6 +129,15 @@ playAgainBtn.onclick = () => {
   resultsText.innerHTML = "";
   resultWinner.classList.toggle("hidden");
   resultsDiv.classList.toggle("show-winner");
+};
+
+// score
+let defaultScore = 0;
+const keepScore = (score) => {
+  defaultScore += score;
+  console.log(defaultScore);
+
+  resultScore.textContent = defaultScore;
 };
 
 // functions ends

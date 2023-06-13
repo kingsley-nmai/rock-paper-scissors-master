@@ -1,0 +1,403 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Satisfy&display=swap");
+
+/* variables  */
+:root {
+  --light-text: #fff;
+  --dark-text: hsl(228, 25%, 31%);
+  --score-text: hsl(229, 64%, 46%);
+  --outline: hsl(217, 16%, 45%);
+  --bg-grad-1: hsl(214, 47%, 23%);
+  --bg-grad-2: hsl(237, 49%, 15%);
+  --scissors-grad-1: hsl(39, 89%, 49%);
+  --scissors-grad-2: hsl(40, 84%, 53%);
+  --paper-grad-1: hsl(230, 89%, 62%);
+  --paper-grad-2: hsl(230, 89%, 65%);
+  --rock-grad-1: hsl(349, 71%, 52%);
+  --rock-grad-2: hsl(349, 70%, 56%);
+  --shadow-light: #00000026;
+  --shadow-medium: #0000004d;
+  --active-bg: #223351;
+  --circle-bg: #16213d;
+}
+
+/* global styles starts  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  transition: 0.2s linear;
+  text-transform: uppercase;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  /* overflow: hidden; */
+  background: radial-gradient(at top, var(--bg-grad-1), var(--bg-grad-2));
+  min-height: 100vh;
+}
+/* global styles end */
+
+/* header & game styles starts  */
+.container {
+  position: relative;
+  max-width: 70rem;
+  margin: 3rem auto;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0.25rem solid var(--outline);
+  border-radius: 1.2rem;
+  padding: 1rem 2rem;
+  height: 12rem;
+}
+.logo img {
+  height: 100%;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--light-text);
+  width: 13rem;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+.score_title {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  color: var(--score-text);
+}
+.score_number {
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--dark-text);
+}
+
+.game {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "paper scissors"
+    "rock rock";
+  place-items: center;
+  padding-top: 2.5rem;
+  height: 45rem;
+}
+
+.choice-btn[data-choice="paper"] {
+  grid-area: paper;
+  /* background: red; */
+}
+.choice-btn[data-choice="rock"] {
+  grid-area: rock;
+}
+.choice-btn[data-choice="scissors"] {
+  grid-area: scissors;
+}
+
+.choice-btn {
+  border: none;
+  /* outline: none; */
+  background: none;
+  cursor: pointer;
+}
+
+.game::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 12rem;
+  left: 19rem;
+  background: url("./images/bg-triangle.svg") no-repeat;
+  z-index: -1;
+}
+.choice {
+  background: var(--light-text);
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  box-shadow: inset 0 0.5rem var(--shadow-light);
+}
+
+.choice::before,
+.choice::after {
+  content: "";
+  width: 130%;
+  height: 130%;
+  border-radius: 50%;
+  position: absolute;
+  /* top: -15%; */
+  /* left: -15%; */
+  z-index: -1;
+}
+
+.choice::after {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.choice-btn:hover .choice::after {
+  opacity: 1;
+  box-shadow: 0 0 0 2rem var(--active-bg);
+  z-index: -2;
+}
+
+.choice.paper::before {
+  background: linear-gradient(
+    to bottom,
+    var(--paper-grad-1),
+    var(--paper-grad-2)
+  );
+  box-shadow: 0 0.5rem var(--shadow-medium), 0 0.5rem var(--paper-grad-2);
+}
+.choice.scissors::before {
+  background: linear-gradient(
+    to bottom,
+    var(--scissors-grad-1),
+    var(--scissors-grad-2)
+  );
+  box-shadow: 0 0.5rem var(--shadow-medium), 0 0.5rem var(--scissors-grad-2);
+}
+.choice.rock::before {
+  background: linear-gradient(
+    to bottom,
+    var(--rock-grad-1),
+    var(--rock-grad-2)
+  );
+  box-shadow: 0 0.5rem var(--shadow-medium), 0 0.5rem var(--rock-grad-2);
+}
+
+.choice img {
+  transform: scale(1.2);
+}
+/* header & game styles ends  */
+
+/* rules btn style starts */
+.rules-btn {
+  position: absolute;
+  right: 3rem;
+  bottom: 4rem;
+  padding: 0.5rem 2rem;
+  /* outline: none; */
+  background: none;
+  color: var(--light-text);
+  border: 0.2rem solid var(--outline);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  letter-spacing: 0.2rem;
+}
+/* rules btn style ends */
+
+/* modal styles starts  */
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--shadow-medium);
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  /* visibility: hidden; */
+  transition: opacity 0.4s ease-in-out;
+}
+.modal_container {
+  background: var(--light-text);
+  padding: 0 2rem 2rem;
+  border-radius: 1rem;
+}
+.modal_header {
+  /* outline: none; */
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal_heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--dark-text);
+  letter-spacing: 0.1rem;
+}
+.close-btn {
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+.rules-img {
+  padding: 0 4rem;
+}
+.show-modal {
+  opacity: 1;
+  pointer-events: initial;
+}
+/* .hide-modal {
+  opacity: 0;
+  pointer-events: none;
+} */
+/* modal styles ends  */
+
+/* results styles starts */
+.results {
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    "your-tittle ai-tittle"
+    "you-picked ai-picked";
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  max-width: 100rem;
+  margin: 0 auto;
+  /* position: relative; */
+}
+
+/* .results_heading:nth-child(1) {
+  grid-area: your-tittle;
+}
+.results_heading:nth-child(2) {
+  grid-area: ai-tittle;
+}
+.results_result:nth-child(1) {
+  grid-area: you-picked;
+}
+.results_result:nth-child(2) {
+  grid-area: ai-picked;
+} */
+
+.results_heading:first-of-type {
+  grid-area: your-tittle;
+}
+.results_heading:last-of-type {
+  grid-area: ai-tittle;
+}
+.results_result:first-of-type {
+  grid-area: you-picked;
+}
+.results_result:last-of-type {
+  grid-area: ai-picked;
+}
+
+.results_heading {
+  font-size: 2rem;
+  letter-spacing: 0.1rem;
+  padding: 4rem 0 8rem;
+  color: var(--light-text);
+}
+
+.results_result {
+  min-width: 10rem;
+  min-height: 10rem;
+  background: var(--circle-bg);
+  border-radius: 50%;
+  /* position: absolute; */
+  /* top: 10rem; */
+  transform: scale(1.5em);
+  z-index: -1;
+}
+.results.hidden,
+.game.hidden,
+.results_winner.hidden {
+  display: none;
+}
+
+.results_winner {
+  display: grid;
+  grid-area: result-winner;
+  place-items: center;
+}
+.results_text {
+  font-size: 3.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.results_text button {
+  color: var(--light-text);
+}
+.play-again {
+  background: var(--light-text);
+  outline: none;
+  border: 0.125rem solid transparent;
+  border-radius: 0.6rem;
+  color: var(--dark-text);
+  padding: 0.6rem 3.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  letter-spacing: 0.1rem;
+}
+.play-again:focus {
+  border: 0.125rem solid var(--outline);
+}
+
+.results.show-winner {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "your-tittle . ai-tittle"
+    "you-picked result-winner ai-picked";
+}
+/* .hidden {
+  display: none;
+}
+.results_winner {
+  grid-area: result-winner;
+  display: grid;
+  place-items: center;
+}
+.results_text {
+  font-size: 3.5rem;
+  padding-bottom: 1.5rem;
+}
+.play-again {
+  background: #fff;
+  outline: none;
+  border: 2px solid transparent;
+  border-radius: 0.6rem;
+  color: var(--dark-text);
+  padding: 0.6rem 3.5rem;
+  font-family: inherit;
+  text-transform: inherit;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+}
+.play-again:focus {
+  border: 2px solid var(--outline);
+}
+
+.results.show-winner {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas:
+    "your-tittle . ai-tittle"
+    "you-picked result-winner ai-picked";
+} */
+
+/* results styles ends */
+
+/* .attribution {
+  font-size: 11px;
+  text-align: center;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+} */
+/* h2 { */
+/* border: 10px solid linear-gradient(to bottom, red, yellow); */
+/* border: 10px solid red; */
+/* color: red; */
+/* } */

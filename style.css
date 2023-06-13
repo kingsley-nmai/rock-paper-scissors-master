@@ -325,6 +325,7 @@ header {
 .results_text {
   font-size: 3.5rem;
   padding-bottom: 1.5rem;
+  color: var(--light-text);
 }
 
 .results_text button {
@@ -350,6 +351,19 @@ header {
   grid-template-areas:
     "your-tittle . ai-tittle"
     "you-picked result-winner ai-picked";
+}
+.winner .choice::after {
+  box-shadow: 0 0 0 5rem #293251, 0 0 0 10rem #232c4b, 0 0 0 15rem #1e2949;
+  animation: bgAnim 0.4s ease-in forwards;
+}
+
+@keyframes bgAnim {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* results styles ends */

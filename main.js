@@ -40,11 +40,9 @@ const choiceBtns = document.querySelectorAll(".choice-btn");
 const resultsDiv = document.querySelector(".results");
 const AllresultsDivs = document.querySelectorAll(".results_result");
 
-// const resultWinner = document.querySelector(".results_winner");
-// const resultsText = document.querySelector(".results_text");
-
 const resultWinner = document.querySelector(".results_winner");
-const resultText = document.querySelector(".results_text");
+const resultsText = document.querySelector(".results_text");
+const playAgainBtn = document.querySelector(".play-again");
 
 choiceBtns.forEach((btn) => {
   btn.onclick = () => {
@@ -88,53 +86,46 @@ const displayResults = (results) => {
 };
 
 // return a Boolean by comparing the first and second index values of arguments passed
-// const isWinner = (results) => {
-//   return results[0].beats === results[1].name;
-// };
-
-// const displayWinner = (results) => {
-//   setTimeout(() => {
-//     const userWins = isWinner(results); //compare you choice vs computer choice
-//     const aiWins = isWinner(results.reverse()); // compare computers choice with your choice
-//     // console.log(userWins);
-//     // console.log(aiWins);
-
-//     if (userWins) {
-//       resultsText.innerHTML = "you win";
-//     } else if (aiWins) {
-//       resultsText.innerHTML = "you lose";
-//     } else {
-//       resultsText.innerHTML = "tie";
-//     }
-//     resultWinner.classList.toggle("hidden");
-//     resultsDiv.classList.toggle("show-winner");
-//   }, 1000);
-// };
-
-function isWinner(results) {
+const isWinner = (results) => {
   return results[0].beats === results[1].name;
-}
+};
 
-function displayWinner(results) {
+const displayWinner = (results) => {
   setTimeout(() => {
-    const userWins = isWinner(results);
-    const aiWins = isWinner(results.reverse());
+    const userWins = isWinner(results); //compare you choice vs computer choice
+    const aiWins = isWinner(results.reverse()); // compare computers choice with your choice
+    // console.log(userWins);
+    // console.log(aiWins);
 
     if (userWins) {
-      resultText.innerText = "you win";
-      // resultDivs[0].classList.toggle("winner");
-      // keepScore(1);
+      resultsText.innerHTML = "you win";
+      AllresultsDivs[0].classList.toggle("winner");
     } else if (aiWins) {
-      resultText.innerText = "you lose";
-      // resultDivs[1].classList.toggle("winner");
-      // keepScore(-1);
+      resultsText.innerHTML = "you lose";
+      AllresultsDivs[1].classList.toggle("winner");
     } else {
-      resultText.innerText = "draw";
+      resultsText.innerHTML = "tie";
     }
     resultWinner.classList.toggle("hidden");
     resultsDiv.classList.toggle("show-winner");
   }, 1000);
-}
+};
+
+// play again
+playAgainBtn.onclick = () => {
+  // console.log("Hello");
+  gameDiv.classList.toggle("hidden");
+  resultsDiv.classList.toggle("hidden");
+
+  AllresultsDivs.forEach((singleResultDiv) => {
+    singleResultDiv.innerHTML = "";
+    singleResultDiv.classList.remove("winner");
+  });
+
+  resultsText.innerHTML = "";
+  resultWinner.classList.toggle("hidden");
+  resultsDiv.classList.toggle("show-winner");
+};
 
 // functions ends
 // game logic ends

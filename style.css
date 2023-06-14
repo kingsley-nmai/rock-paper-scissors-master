@@ -33,7 +33,6 @@
 html {
   font-size: 62.5%;
   overflow-x: hidden;
-  /* overflow: hidden; */
   background: radial-gradient(at top, var(--bg-grad-1), var(--bg-grad-2));
   min-height: 100vh;
 }
@@ -44,6 +43,7 @@ html {
   position: relative;
   max-width: 70rem;
   margin: 3rem auto;
+  overflow: hidden;
 }
 header {
   display: flex;

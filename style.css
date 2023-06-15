@@ -421,7 +421,7 @@ header .logo img {
     width: 80%;
     height: 100%;
     top: 0rem;
-    left: 2rem;
+    left: 2.5rem;
     margin-top: 14rem;
   }
 
@@ -432,6 +432,12 @@ header .logo img {
 
   .choice img {
     transform: scale(1);
+  }
+  .rules-btn {
+    right: 14rem;
+    border-radius: 1rem;
+    font-size: 2.5rem;
+    padding: 1rem 5rem;
   }
 }
 /* results styles ends */

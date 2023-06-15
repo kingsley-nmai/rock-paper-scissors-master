@@ -377,6 +377,10 @@ header .logo img {
     padding: 2rem;
   }
 
+  .container {
+    margin: 0 auto;
+  }
+
   .container .header .logo {
     max-width: 12rem;
     /* height: 8rem; */
@@ -406,6 +410,28 @@ header .logo img {
   .modal_header .close-btn {
     position: absolute;
     top: 65rem;
+  }
+
+  .game {
+    padding-top: 4.5rem;
+    height: 52rem;
+  }
+
+  .game::before {
+    width: 80%;
+    height: 100%;
+    top: 0rem;
+    left: 2rem;
+    margin-top: 14rem;
+  }
+
+  .choice {
+    height: 13rem;
+    width: 13rem;
+  }
+
+  .choice img {
+    transform: scale(1);
   }
 }
 /* results styles ends */

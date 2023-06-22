@@ -50,7 +50,7 @@ choiceBtns.forEach((btn) => {
     // console.log(btn.dataset);
     const choiceValue = btn.dataset.choice;
     const choice = CHOICES.find((choice) => choice.name === choiceValue);
-    // console.log(choice);
+    console.log(choice);
     choose(choice);
   };
 });
@@ -65,11 +65,13 @@ const choose = (choice) => {
 
 const aiChoose = () => {
   const randomValue = Math.floor(Math.random() * CHOICES.length);
-  //   console.log(rand);
+  // console.log(randomValue);
+  console.log(CHOICES[randomValue]);
   return CHOICES[randomValue];
 };
 
 const displayResults = (results) => {
+  // loop through results_result
   AllresultsDivs.forEach((singleResultDiv, index) => {
     // console.log(index);
     // console.log(results);
@@ -88,13 +90,17 @@ const displayResults = (results) => {
 
 // return a Boolean by comparing the first and second index values of arguments passed
 const isWinner = (results) => {
+  console.log(results[0].beats);
+  console.log(results[1].name);
   return results[0].beats === results[1].name;
 };
 
 const displayWinner = (results) => {
   setTimeout(() => {
-    const userWins = isWinner(results); //compare you choice vs computer choice
-    const aiWins = isWinner(results.reverse()); // compare computers choice with your choice
+    console.log(results);
+    const userWins = isWinner(results); //compare your choice vs computer choice for the first time
+    const aiWins = isWinner(results.reverse()); // compare computers choice with your choice for the second time
+    // const aiWins = isWinner(results);
     // console.log(userWins);
     // console.log(aiWins);
 
@@ -135,7 +141,7 @@ playAgainBtn.onclick = () => {
 let defaultScore = 0;
 const keepScore = (score) => {
   defaultScore += score;
-  console.log(defaultScore);
+  // console.log(defaultScore);
 
   resultScore.textContent = defaultScore;
 };

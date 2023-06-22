@@ -106,11 +106,11 @@ const displayWinner = (results) => {
 
     if (userWins) {
       resultsText.innerHTML = "you win";
-      AllresultsDivs[0].classList.toggle("winner");
+      AllresultsDivs[0].classList.toggle("winner"); //adding winner class to whichever that returns a boolean of true
       keepScore(1);
     } else if (aiWins) {
       resultsText.innerHTML = "you lose";
-      AllresultsDivs[1].classList.toggle("winner");
+      AllresultsDivs[1].classList.toggle("winner"); //adding winner class to whichever that returns a boolean of true
       keepScore(-1);
     } else {
       resultsText.innerHTML = "tie";
